@@ -153,4 +153,14 @@ public class ReservationResource {
         return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
     }
 
+
+
+    // START OF KAYLIN CODE!!!
+    @RequestMapping(path = "/welcomeMessage", method=RequestMethod.GET)
+    public String[] getMessage() {
+        return new String[] {
+                "Bienvenue à l'hôtel Landon !",
+                "Welcome to the Landon Hotel!"
+        };
+    }
 }

@@ -22,6 +22,7 @@ export class AppComponent implements OnInit{
   private getUrl:string = this.baseURL + '/room/reservation/v1/';
   private postUrl:string = this.baseURL + '/room/reservation/v1';
   public submitted!:boolean;
+  welcome!: String;
   roomsearch! : FormGroup;
   rooms! : Room[];
   request!:ReserveRoomRequest;
@@ -29,6 +30,15 @@ export class AppComponent implements OnInit{
   currentCheckOutVal!:string;
 
     ngOnInit(){
+
+      //KAYLIN CODE:
+      this.getWelcomeMessage().subscribe(
+        welcome => {
+          console.log(Object.values(welcome));
+          this.welcome = <any>Object.values(welcome);
+        }
+      )
+
       this.roomsearch= new FormGroup({
         checkin: new FormControl(' '),
         checkout: new FormControl(' ')
@@ -81,6 +91,12 @@ export class AppComponent implements OnInit{
 
 
        return this.httpClient.get(this.baseURL + '/room/reservation/v1?checkin='+ this.currentCheckInVal + '&checkout='+this.currentCheckOutVal, {responseType: 'json'});
+    }
+
+
+    //KAYLIN CODE:
+    getWelcomeMessage(): Observable<any> {
+      return this.httpClient.get(this.baseURL + '/room/reservation/v1/welcomeMessage', {responseType: 'json'})
     }
 
   }

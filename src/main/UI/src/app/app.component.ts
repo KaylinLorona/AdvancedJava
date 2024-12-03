@@ -28,10 +28,18 @@ export class AppComponent implements OnInit{
   request!:ReserveRoomRequest;
   currentCheckInVal!:string;
   currentCheckOutVal!:string;
+  presentationTimes!: String;
 
     ngOnInit(){
 
       //KAYLIN CODE:
+      this.getPresentationTime().subscribe(
+        presentationTimes => {
+          console.log(presentationTimes);
+          this.presentationTimes = presentationTimes;
+      }
+      )
+
       this.getWelcomeMessage().subscribe(
         welcome => {
           console.log(Object.values(welcome));
@@ -99,7 +107,12 @@ export class AppComponent implements OnInit{
       return this.httpClient.get(this.baseURL + '/room/reservation/v1/welcomeMessage', {responseType: 'json'})
     }
 
-  }
+    getPresentationTime(): Observable<any>{
+      return this.httpClient.get(this.baseURL + "/presentation", {responseType: 'text'})
+    }
+
+
+  };
 
 
 
